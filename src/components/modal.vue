@@ -6,7 +6,7 @@
 			<p> {{ month }}개월 선택함 :  {{ oneroom_data[get_product_num].price * month }}</p>
 
 			<!-- <input type="text" @input="month = $event.target.value"> -->
-			<input v-model.number="month">
+			<input v-model="month">
 
 			<button @click="$emit('closeModal', get_product_num)">닫기</button>
 		</div>
@@ -23,11 +23,12 @@ export default {
 	},
 	watch: {
 		month(a) {
-			if( a >= 13 ) {
-				month = 12
+			if( isNaN(a) == true || a > 12 ) {
+				this.month = 12
 			}
 		}
 	},
+
 	props: {
 		oneroom_data : Object,
 		modal_bool : Boolean,

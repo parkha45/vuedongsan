@@ -1,24 +1,6 @@
 # vvuuedongsan
 
-## Project setup
-```
-yarn install
-```
+### 뷰동산에 오신 것을 환영합니다~
+### 뷰동산은 VUE를 처음 배우는 제가 처음 만들어보는 뷰 토이프로젝트입니다.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### npm이나 yarn도 처음 써보는 아마추어 개발자이다보니 scss를 까는데에도 수일이 걸렸네요... 설정 끝났으니 이쁜 토이프로젝트 만들겠습니다!

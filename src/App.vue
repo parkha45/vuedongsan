@@ -6,9 +6,14 @@
 			</ul>
 		</div>
 
+		<button @click="priceSort">가격순정렬</button>
+		<button @click="backSort">가격순정렬</button>
+
 		<Discount/>
 
-		<Modal @closeModal="modal_bool = false;" :oneroom_data="oneroom_data" :modal_bool="modal_bool" :get_product_num="get_product_num" />
+		<transition name="fade">
+			<Modal @closeModal="modal_bool = false;" :oneroom_data="oneroom_data" :modal_bool="modal_bool" :get_product_num="get_product_num" />
+		</transition>
 
 		<Card @openModal="modal_bool = true; get_product_num = $event" v-for="(oneroom, i) in oneroom_data" :key="oneroom" :oneroom="oneroom_data[i]" />
 
@@ -41,6 +46,11 @@ export default {
 	methods : {
 		increase( i ) {
 			this.신고수[i]++
+		},
+		priceSort() {
+			this.oneroom_data.sort(function(a, b) {
+				return a.price - b.price
+			})
 		}
 	},
 	components: {
@@ -107,8 +117,33 @@ export default {
 		padding: 100px 0;
 		margin: auto;
 	}
+
+	.fade-enter-from {
+		opacity: 0;
+	}
+
+	.fade-enter-active {
+		transition: all 1s;
+	}
+
+	.fade-enter-to {
+		opacity: 1;
+	}
+
+	.fade-leave-from {
+		opacity: 1;
+	}
+
+	.fade-leave-active {
+		transition: all 1s;
+	}
+
+	.fade-leave-to {
+		opacity: 0;
+	}
 </style>
 
 <style lang="scss">
 	@import '@/assets/scss/style.scss';
+	@import '@/assets/scss/modal.scss';
 </style>
