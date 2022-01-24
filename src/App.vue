@@ -9,13 +9,18 @@
 		<button @click="priceSort">가격순정렬</button>
 		<button @click="backSort">가격순정렬</button>
 
-		<Discount/>
+		<Discount :discountPrice="discountPrice" />
 
-		<transition name="fade">
-			<Modal @closeModal="modal_bool = false;" :oneroom_data="oneroom_data" :modal_bool="modal_bool" :get_product_num="get_product_num" />
-		</transition>
+		<!-- <transition name="fade">
+			<Modal @closeModal="modal_bool = false" :oneroom_data="oneroom_data" :modal_bool="modal_bool" :get_product_num="get_product_num" />
+		</transition> -->
 
-		<Card @openModal="modal_bool = true; get_product_num = $event" v-for="(oneroom, i) in oneroom_data" :key="oneroom" :oneroom="oneroom_data[i]" />
+		<div class="fade_in" :class="{ fade_out : modal_bool }">
+			<Modal @closeModal="modal_bool = false" :oneroom_data="oneroom_data" :modal_bool="modal_bool" :get_product_num="get_product_num" />
+		</div>
+
+
+		<Card @openModal="modal_bool = true; get_product_num = $event" v-for="(oneroom, i) in oneroom_data" :key="i" :oneroom="oneroom_data[i]" />
 
 	</div>
 </template>
@@ -32,6 +37,9 @@ export default {
   name: 'App',
   data() {
 		return {
+			showDiscount: true,
+			discountPrice: 30,
+			oneroom_original: [...data],
 			oneroom_data: data,
 			menu: [ 'home', 'Shop', 'About' ],
 			product: ['역삼동원룸', '천호동원룸', '마포구원룸'],
@@ -49,9 +57,26 @@ export default {
 		},
 		priceSort() {
 			this.oneroom_data.sort(function(a, b) {
-				return a.price - b.price
+				return b.price - a.price
 			})
-		}
+
+			// let data = this.oneroom_data.map( (item)=>{
+			// 	return item.price
+			// })
+
+		},
+		backSort() {
+			this.oneroom_data = [...this.oneroom_original]
+		},
+	},
+	mounted() {
+		setInterval(()=>{
+			if( this.discountPrice > 0 ) {
+					this.discountPrice--
+			} else {
+				clearInterval()
+			}
+		}, 1000)
 	},
 	components: {
 		Discount : Discount,

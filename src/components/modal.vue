@@ -5,7 +5,6 @@
 			<p>{{ oneroom_data[get_product_num].content }}</p>
 			<p> {{ month }}개월 선택함 :  {{ oneroom_data[get_product_num].price * month }}</p>
 
-			<!-- <input type="text" @input="month = $event.target.value"> -->
 			<input v-model="month">
 
 			<button @click="$emit('closeModal', get_product_num)">닫기</button>
@@ -28,9 +27,17 @@ export default {
 			}
 		}
 	},
+	beforeUpdate() {
+		if( this.month == 2 ) {
+			alert("최소 3개월부터 가능합니다.")
+			this.month = 3
+		}
+	},
+	updated() {
 
+	},
 	props: {
-		oneroom_data : Object,
+		oneroom_data : Array,
 		modal_bool : Boolean,
 		get_product_num : Number
 	}
